@@ -320,7 +320,7 @@ python3.6 -V
 **安装项目：**
 
 ~~~
-git clone -b v2ray_api https://github.com/rico93/shadowsocks-munager.git
+git clone -b v2ray_api https://github.com/pandoraes/v2ray-api.git
 cd shadowsocks-munager
 cp config/config_example.yml config/config.yml
 cp config/config.json /etc/v2ray/config.json
