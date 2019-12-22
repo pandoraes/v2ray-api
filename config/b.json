@@ -1,0 +1,141 @@
+{
+  "api": {
+		"services": [
+			"HandlerService",
+			"LoggerService",
+			"StatsService"
+		],
+		"tag": "api"
+	},
+  "log": {
+    "access": "/var/log/v2ray/access.log",
+    "error": "/var/log/v2ray/error.log",
+    "loglevel": "info"
+  },
+  "dns": {},
+  "stats": {},
+  "inbounds": [
+    {
+			"listen": "127.0.0.1",
+			"port": 2333,
+			"protocol": "dokodemo-door",
+			"settings": {
+				"address": "127.0.0.1"
+			},
+			"tag": "api"
+		},
+    {
+      "port": 9999,
+      "tag": "interconn",
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "27848739-7e62-4138-9fd3-098a63964b6b", //记得替换
+            "alterId": 16
+          }
+        ]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "tag": "blocked",
+      "protocol": "blackhole",
+      "settings": {}
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "MAIN_INBOUND"
+        ],
+        "outboundTag": "portal"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "interconn"
+        ],
+        "domain": [
+          "full:veekxt.com"
+        ],
+        "outboundTag": "portal"
+      },
+      {
+					"ip": [
+						"0.0.0.0/8",
+						"10.0.0.0/8",
+						"100.64.0.0/10",
+						"127.0.0.0/8",
+						"169.254.0.0/16",
+						"172.16.0.0/12",
+						"192.0.0.0/24",
+						"192.0.2.0/24",
+						"192.168.0.0/16",
+						"198.18.0.0/15",
+						"198.51.100.0/24",
+						"203.0.113.0/24",
+						"::1/128",
+						"fc00::/7",
+						"fe80::/10"
+					],
+					"outboundTag": "blocked",
+					"protocol": [
+						"bittorrent"
+					],
+					"type": "field"
+				},
+				{
+					"inboundTag": [
+						"api"
+					],
+					"outboundTag": "api",
+					"type": "field"
+				},
+				{
+					"domain": [
+						"regexp:(api|ps|sv|offnavi|newvector|ulog\\.imap|newloc)(\\.map|)\\.(baidu|n\\.shifen)\\.com",
+						"regexp:(.+\\.|^)(360|so)\\.(cn|com)",
+						"regexp:(.?)(xunlei|sandai|Thunder|XLLiveUD)(.)"
+					],
+					"outboundTag": "blocked",
+					"type": "field"
+				}
+    ]
+  },
+  "policy": {
+		"levels": {
+			"0": {
+				"bufferSize": 10240,
+				"connIdle": 300,
+				"downlinkOnly": 5,
+				"handshake": 4,
+				"statsUserDownlink": true,
+				"statsUserUplink": true,
+				"uplinkOnly": 2
+			}
+		},
+		"system": {
+			"statsInboundDownlink": false,
+			"statsInboundUplink": false
+		}
+	},
+  "reverse": {
+    "portals": [
+      {
+        "tag": "portal",
+        "domain": "veekxt.com"
+      }
+    ]
+  },
+  "transport": {}
+}

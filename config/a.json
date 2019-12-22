@@ -1,0 +1,64 @@
+{
+
+  "log": {},
+  "dns": {},
+  "stats": {},
+  "inbounds": [],
+  "outbounds": [
+    {
+      "tag": "out",
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "13.115.161.226",
+            "port": 9999,
+            "users": [
+              {
+                "id": "27848739-7e62-4138-9fd3-098a63964b6b", // 记得替换
+                "alterId": 16
+              }
+            ]
+          }
+        ]
+      },
+      "tag": "interconn"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "inboundTag": [
+          "bridge"
+        ],
+        "domain": [
+          "full:veekxt.com"
+        ],
+        "outboundTag": "interconn"
+      },
+      {
+        "type": "field",
+        "inboundTag": [
+          "bridge"
+        ],
+        "outboundTag": "out"
+      }
+    ]
+  },
+  "policy": {},
+  "reverse": {
+    "bridges": [
+      {
+        "tag": "bridge",
+        "domain": "veekxt.com"
+      }
+    ]
+  },
+  "transport": {}
+}

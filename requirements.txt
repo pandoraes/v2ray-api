@@ -1,0 +1,5 @@
+PyYAML==3.12
+click==6.7
+requests==2.20.0
+grpcio-tools
+grpcio
