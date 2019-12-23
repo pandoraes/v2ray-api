@@ -320,10 +320,10 @@ python3.6 -V
 **安装项目：**
 
 ~~~
-git clone -b v2ray_api https://github.com/pandoraes/v2ray-api.git
-cd shadowsocks-munager
+git clone -b master https://github.com/pandoraes/v2ray-api.git
+cd v2ray-api
 cp config/config_example.yml config/config.yml
-cp config/config.json /etc/v2ray/config.json
+mkdir /etc/v2ray&&cp config/config.json /etc/v2ray/config.json
 pip3 install -r requirements.txt or pip3.6 install -r requirements.txt
 ~~~
 
